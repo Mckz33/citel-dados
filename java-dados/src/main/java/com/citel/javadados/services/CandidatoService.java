@@ -35,4 +35,8 @@ public class CandidatoService {
     public void delete(CandidatoModel parkingSpotModel) {
         candidatoRepository.delete(parkingSpotModel);
     }
+
+    public List<CandidatoModel> findByNome(String nome) {
+        return candidatoRepository.findByNome(nome);
+    }
 }
