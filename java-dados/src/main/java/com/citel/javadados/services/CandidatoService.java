@@ -3,6 +3,8 @@ package com.citel.javadados.services;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.citel.javadados.models.CandidatoModel;
@@ -21,8 +23,8 @@ public class CandidatoService {
         return candidatoRepository.save(candidatoModel);
     }
 
-    public List<CandidatoModel> findAll() {
-        return candidatoRepository.findAll();
+    public Page<CandidatoModel> findAll(Pageable pageable) {
+        return candidatoRepository.findAll(pageable);
     }
 
     public Optional<CandidatoModel> findById(Long id) {
