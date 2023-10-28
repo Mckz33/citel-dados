@@ -1,6 +1,5 @@
 package com.citel.javadados.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -49,7 +48,7 @@ public class CandidatoController {
     }
 
     @GetMapping("/pesquisar/{nome}")
-    public List<CandidatoModel> buscarPorNome(@PathVariable String nome) {
-        return candidatoService.findByNome(nome);
+    public Page<CandidatoModel> buscarPorNome(@PathVariable String nome, Pageable pageable) {
+        return candidatoService.findByNome(nome, pageable);
     }
 }

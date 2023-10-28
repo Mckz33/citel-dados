@@ -36,7 +36,9 @@ public class CandidatoService {
         candidatoRepository.delete(parkingSpotModel);
     }
 
-    public List<CandidatoModel> findByNome(String nome) {
-        return candidatoRepository.findByNome(nome);
+    public Page<CandidatoModel> findByNome(String nome, Pageable pageable) {
+        return candidatoRepository.findByNome(nome, pageable);
     }
+
+
 }
