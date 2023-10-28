@@ -29,7 +29,7 @@ public class CandidatoService {
         return candidatoRepository.findById(id);
     }
 
-    @Transactional // garantia caso algo dê errado
+    @Transactional
     public void delete(CandidatoModel parkingSpotModel) {
         candidatoRepository.delete(parkingSpotModel);
     }
