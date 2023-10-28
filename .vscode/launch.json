@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-JavaDadosApplication<java-dados>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.citel.javadados.JavaDadosApplication",
+            "projectName": "java-dados",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
