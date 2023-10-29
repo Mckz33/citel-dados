@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class CandidatosPorEstadoService {
 
   constructor(private httpClient: HttpClient) {}
 
-  get() {
+  get(): Observable<any> {
     return this.httpClient.get<CandidatosPorEstado[]>(`${this.baseURL}/candidatosPorEstado`)
   }
 }

@@ -30,7 +30,7 @@ public class CandidatoModel implements Serializable {
     private String rg;
 
     @Column(name = "data_nasc")
-    @JsonAlias({"nome", "data_nasc"})
+    @JsonAlias({ "nome", "data_nasc" })
     private String dataNasc;
     @Column(nullable = false)
     private String sexo;
@@ -53,7 +53,7 @@ public class CandidatoModel implements Serializable {
     @Column(nullable = false)
     private String estado;
     @Column(name = "telefone_fixo")
-    @JsonAlias({"nome", "telefone_fixo"})
+    @JsonAlias({ "nome", "telefone_fixo" })
     private String telefoneFixo;
     @Column(nullable = false)
     private String celular;
@@ -62,7 +62,7 @@ public class CandidatoModel implements Serializable {
     @Column(nullable = false)
     private Integer peso;
     @Column(name = "tipo_sanguineo")
-    @JsonAlias({"nome", "tipo_sanguineo"})
+    @JsonAlias({ "nome", "tipo_sanguineo" })
     private String tipoSanguineo;
 
 }

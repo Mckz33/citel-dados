@@ -1,6 +1,7 @@
-import { BehaviorSubject, Observable, startWith, tap } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
+
+import { Component, OnInit } from '@angular/core';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
 
 @Component({
@@ -10,19 +11,30 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
 })
 export class CandidatoPorEstadoComponent implements OnInit {
   
-  private _candidatosPorEstado = new BehaviorSubject<CandidatosPorEstado[]>([]);
-  public candidatosPorEstado$ = this._candidatosPorEstado.asObservable();
+  // candidatosPorEstado!: Observable<CandidatosPorEstado[]>
+
+  // candidatosPorEstado!: Observable<CandidatosPorEstado[]>;
+
+  candidatosPorEstado: CandidatosPorEstado[] = [];
 
   displayedColumns = [
-    'id', 'RR', 'RS', 'PR', 'DF', 'SC', 'SE', 'MA', 'MG', 'SP', 'AC', 'CE',
-    'MS', 'MT', 'GO', 'AL', 'AM', 'ES', 'AP', 'PA', 'PB', 'PE', 'RJ', 'PI',
-    'TO', 'RN', 'RO', 'BA'
+    'Estado', 'Quantidade'
 ];
- constructor( private candidatosPorEstadoService: CandidatosPorEstadoService ) {  }
+ constructor( private candidatosPorEstadoService: CandidatosPorEstadoService ) { 
+  
+  }
 
    ngOnInit() {
-    this.candidatosPorEstadoService.get().subscribe(data => {
-      this._candidatosPorEstado.next(data);
-    });
+    this.candidatosPorEstadoService.get().subscribe(
+      data => {
+        this.candidatosPorEstado = data;
+      }
+    )
+    // this.candidatosPorEstadoService.get().subscribe(
+    //   data => {
+    //     this.candidatosPorEstado = data;
+    //     console.log(data)
+    //   }
+    // );
    }
 }

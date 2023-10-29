@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-
-import com.citel.javadados.dtos.CandidatoDto;
 import com.citel.javadados.dtos.Resposta;
 import com.citel.javadados.models.CandidatoModel;
 import com.citel.javadados.services.CandidatoService;
@@ -36,11 +34,11 @@ public class CandidatoController {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
-        //List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
-        ///List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
-        
-        //BeanUtils.copyProperties(candidatoDto, candidatoModel);
-        ///candidatoModelt.addAll(candidatoModel);
+        // List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
+        /// List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
+
+        // BeanUtils.copyProperties(candidatoDto, candidatoModel);
+        /// candidatoModelt.addAll(candidatoModel);
         Resposta resposta = candidatoService.processar(candidatoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
@@ -61,10 +59,12 @@ public class CandidatoController {
     }
 
     // @GetMapping("/datoso/{dataNasc}")
-    // public ResponseEntity<LocalDate> findByDataNasc(@PathVariable String dataNasc, Pageable pageable) {
-    //     String[] novoDataNasc = dataNasc.split("/");
-    //     LocalDate formatDataNasc = LocalDate.of(Integer.parseInt(novoDataNasc[2]), Integer.parseInt(novoDataNasc[1]),Integer.parseInt(novoDataNasc[0]));
-    //     return ResponseEntity.status(HttpStatus.OK).body(formatDataNasc);
+    // public ResponseEntity<LocalDate> findByDataNasc(@PathVariable String
+    // dataNasc, Pageable pageable) {
+    // String[] novoDataNasc = dataNasc.split("/");
+    // LocalDate formatDataNasc = LocalDate.of(Integer.parseInt(novoDataNasc[2]),
+    // Integer.parseInt(novoDataNasc[1]),Integer.parseInt(novoDataNasc[0]));
+    // return ResponseEntity.status(HttpStatus.OK).body(formatDataNasc);
     // }
 
 }

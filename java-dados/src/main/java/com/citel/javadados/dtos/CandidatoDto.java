@@ -1,13 +1,6 @@
 package com.citel.javadados.dtos;
 
-import java.sql.Date;
-
-import org.hibernate.annotations.NotFound;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import com.fasterxml.jackson.annotation.JsonAlias;
-
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -22,7 +15,7 @@ public class CandidatoDto {
     @NotBlank
     private String rg;
 
-    @JsonAlias({"nome", "data_nasc"})
+    @JsonAlias({ "nome", "data_nasc" })
     private String dataNasc;
     @NotBlank
     private String sexo;
@@ -44,8 +37,8 @@ public class CandidatoDto {
     private String cidade;
     @NotBlank
     private String estado;
-    
-    @JsonAlias({"nome", "telefone_fixo"})
+
+    @JsonAlias({ "nome", "telefone_fixo" })
     private String telefoneFixo;
 
     @NotBlank
@@ -54,7 +47,7 @@ public class CandidatoDto {
     private Double altura;
     @NotNull
     private Integer peso;
-    
-    @JsonAlias({"nome", "tipo_sanguineo"})
+
+    @JsonAlias({ "nome", "tipo_sanguineo" })
     private String tipoSanguineo;
 }
