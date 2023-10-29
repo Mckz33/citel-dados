@@ -13,5 +13,4 @@ public class Resposta {
     private Map<String, Double> mediaIdadePorTipoSanguineo;
     private Map<String, Long> possiveisDoadoresPorTipoSanguineo;
 
-    // Getters e setters
 }
