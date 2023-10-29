@@ -1,5 +1,7 @@
 package com.citel.javadados.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.citel.javadados.dtos.CandidatoDto;
+import com.citel.javadados.dtos.Resposta;
 import com.citel.javadados.models.CandidatoModel;
 import com.citel.javadados.services.CandidatoService;
 
@@ -31,10 +35,14 @@ public class CandidatoController {
     public CandidatoService candidatoService;
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody @Valid CandidatoDto candidatoDto) {
-        var candidatoModel = new CandidatoModel();
-        BeanUtils.copyProperties(candidatoDto, candidatoModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidatoService.save(candidatoModel));
+    public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
+        //List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
+        ///List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
+        
+        //BeanUtils.copyProperties(candidatoDto, candidatoModel);
+        ///candidatoModelt.addAll(candidatoModel);
+        Resposta resposta = candidatoService.processar(candidatoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
     @GetMapping
@@ -47,8 +55,16 @@ public class CandidatoController {
         return candidatoService.findById(id);
     }
 
-    @GetMapping("/pesquisar/{nome}")
-    public Page<CandidatoModel> buscarPorNome(@PathVariable String nome, Pageable pageable) {
-        return candidatoService.findByNome(nome, pageable);
+    @GetMapping("/pesquisar-estado/{estado}")
+    public ResponseEntity<Page<CandidatoModel>> findByEstado(@PathVariable String estado, Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(candidatoService.findByEstado(estado, pageable));
     }
+
+    // @GetMapping("/datoso/{dataNasc}")
+    // public ResponseEntity<LocalDate> findByDataNasc(@PathVariable String dataNasc, Pageable pageable) {
+    //     String[] novoDataNasc = dataNasc.split("/");
+    //     LocalDate formatDataNasc = LocalDate.of(Integer.parseInt(novoDataNasc[2]), Integer.parseInt(novoDataNasc[1]),Integer.parseInt(novoDataNasc[0]));
+    //     return ResponseEntity.status(HttpStatus.OK).body(formatDataNasc);
+    // }
+
 }

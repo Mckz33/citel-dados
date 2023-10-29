@@ -1,16 +1,21 @@
 package com.citel.javadados.models;
 
 import java.io.Serializable;
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "candidato_model")
 public class CandidatoModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -23,8 +28,10 @@ public class CandidatoModel implements Serializable {
     private String cpf;
     @Column(nullable = false)
     private String rg;
-    @Column(nullable = false)
-    private String data_nasc;
+
+    @Column(name = "data_nasc")
+    @JsonAlias({"nome", "data_nasc"})
+    private String dataNasc;
     @Column(nullable = false)
     private String sexo;
     @Column(nullable = false)
@@ -45,15 +52,17 @@ public class CandidatoModel implements Serializable {
     private String cidade;
     @Column(nullable = false)
     private String estado;
-    @Column(nullable = false)
-    private String telefone_fixo;
+    @Column(name = "telefone_fixo")
+    @JsonAlias({"nome", "telefone_fixo"})
+    private String telefoneFixo;
     @Column(nullable = false)
     private String celular;
     @Column(nullable = false)
     private Double altura;
     @Column(nullable = false)
     private Integer peso;
-    @Column(nullable = false)
-    private String tipo_sanguineo;
+    @Column(name = "tipo_sanguineo")
+    @JsonAlias({"nome", "tipo_sanguineo"})
+    private String tipoSanguineo;
 
 }
