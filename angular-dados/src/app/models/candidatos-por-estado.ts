@@ -1,0 +1,30 @@
+export interface CandidatosPorEstado {
+    id: number;
+    RR: number;
+    RS: number;
+    PR: number;
+    DF: number;
+    SC: number;
+    SE: number;
+    MA: number;
+    MG: number;
+    SP: number;
+    AC: number;
+    CE: number;
+    MS: number;
+    MT: number;
+    GO: number;
+    AL: number;
+    AM: number;
+    ES: number;
+    AP: number;
+    PA: number;
+    PB: number;
+    PE: number;
+    RJ: number;
+    PI: number;
+    TO: number;
+    RN: number;
+    RO: number;
+    BA: number;
+}
