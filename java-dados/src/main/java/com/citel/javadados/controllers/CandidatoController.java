@@ -22,8 +22,6 @@ import com.citel.javadados.dtos.Resposta;
 import com.citel.javadados.models.CandidatoModel;
 import com.citel.javadados.services.CandidatoService;
 
-import jakarta.validation.Valid;
-
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/imc")
@@ -40,7 +38,7 @@ public class CandidatoController {
         // BeanUtils.copyProperties(candidatoDto, candidatoModel);
         /// candidatoModelt.addAll(candidatoModel);
         Resposta resposta = candidatoService.processar(candidatoDto);
-        return ResponseEntity.ok(resposta);
+        return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 
     @GetMapping

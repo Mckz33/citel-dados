@@ -1,15 +1,22 @@
+<input type="file" (change)="onFileSelected($event)">
 
-<table mat-table [dataSource]="mediaIdadeSanguineo | keyvalue" class="mat-elevation-z8">
-    
-    <ng-container matColumnDef="pri">
+<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
+</mat-paginator>
+
+<!-- Alterando a dataSource da tabela para usar pagedItems -->
+<table mat-table [dataSource]="pagedItems | keyvalue" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Estado">
         <th mat-header-cell *matHeaderCellDef> Tipo sanguineo </th>
         <td mat-cell *matCellDef="let row"> {{ row.key }} </td>
     </ng-container>
-    <ng-container matColumnDef="sec">
-        <th mat-header-cell *matHeaderCellDef> Média por tipo </th>
+
+    <ng-container matColumnDef="Quantidade">
+        <th mat-header-cell *matHeaderCellDef> Potenciais doadores </th>
         <td mat-cell *matCellDef="let row"> {{ row.value }} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
 </table>

@@ -99,27 +99,27 @@ public class CandidatoService {
     private String getFaixaEtaria(CandidatoModel candidato) {
         int idade = getIdade(candidato);
         if (idade <= 10)
-            return "decimo";
+            return "(0-10)";
         if (idade <= 20)
-            return "vigesimo";
+            return "(11-20)";
         if (idade <= 30)
-            return "trigesimo";
+            return "(21-30)";
         if (idade <= 40)
-            return "quadragesimo";
+            return "(31-40)";
         if (idade <= 50)
-            return "quinquagesimo";
+            return "(41-50)";
         if (idade <= 60)
-            return "sexagesimo";
+            return "(51-60)";
         if (idade <= 70)
-            return "septuagesimo";
+            return "(61-70)";
         if (idade <= 80)
-            return "octogesimo";
+            return "(71-80)";
         if (idade <= 90)
-            return "nonagesimo";
+            return "(81-90)";
         if (idade <= 100)
-            return "centesimo";
+            return "(91-100)";
         // ... e assim por diante para outras faixas etárias
-        return "infinito";
+        return "(100+)";
     }
 
     private int getIdade(CandidatoModel candidato) {
