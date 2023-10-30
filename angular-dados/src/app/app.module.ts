@@ -25,6 +25,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { FooterComponent } from './template/footer/footer.component';
 import { ListarCandidatosBrasilComponent } from './view/listar-candidatos-brasil/listar-candidatos-brasil.component';
 import { HomeComponent } from './view/home/home.component';
+import { ObesosGeneroComponent } from './components/obesos-genero/obesos-genero.component';
+import { MediaIdadeSanguineoComponent } from './components/media-idade-sanguineo/media-idade-sanguineo.component';
+import { DoadoresTipoSanguineoComponent } from './components/doadores-tipo-sanguineo/doadores-tipo-sanguineo.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { HomeComponent } from './view/home/home.component';
     NavComponent,
     FooterComponent,
     ListarCandidatosBrasilComponent,
-    HomeComponent
+    HomeComponent,
+    ObesosGeneroComponent,
+    MediaIdadeSanguineoComponent,
+    DoadoresTipoSanguineoComponent
   ],
   imports: [
     BrowserModule,
