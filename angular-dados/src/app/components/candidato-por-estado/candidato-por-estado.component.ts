@@ -1,3 +1,4 @@
+import { Pessoa } from './../../models/pessoa';
 import { Observable } from 'rxjs';
 import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
 
@@ -16,20 +17,17 @@ export class CandidatoPorEstadoComponent implements OnInit {
   // candidatosPorEstado!: Observable<CandidatosPorEstado[]>;
 
   candidatosPorEstado: CandidatosPorEstado[] = [];
+  public pessoas: Array<Pessoa> = [];
+  public resposta!: CandidatosPorEstado;
+
 
   displayedColumns = [
     'Estado', 'Quantidade'
 ];
- constructor( private candidatosPorEstadoService: CandidatosPorEstadoService ) { 
-  
-  }
+ constructor( private candidatosPorEstadoService: CandidatosPorEstadoService ) { }
 
    ngOnInit() {
-    this.candidatosPorEstadoService.get().subscribe(
-      data => {
-        this.candidatosPorEstado = data;
-      }
-    )
+    
     // this.candidatosPorEstadoService.get().subscribe(
     //   data => {
     //     this.candidatosPorEstado = data;
@@ -37,4 +35,37 @@ export class CandidatoPorEstadoComponent implements OnInit {
     //   }
     // );
    }
+
+
+   onFileSelected(event: any) {
+    console.log("Evento de seleção de arquivo acionado");
+    const file: File = event.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsText(file, "UTF-8");
+      reader.onload = (evt: any) => {
+        const fileContents = evt.target.result;
+        try {
+          const jsonData = JSON.parse(fileContents);
+          console.log(jsonData);
+          
+          this.pessoas = jsonData;
+          this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
+            (res: any) => {
+              this.resposta = res;
+              console.log(this.resposta);
+            }
+          )
+         
+        } catch (e) {
+          console.error('Erro ao parsear o arquivo JSON', e);
+        }
+      };
+      reader.onerror = (evt) => {
+        console.error('Erro ao ler arquivo', evt);
+      };
+    }
+  }
+  
 }

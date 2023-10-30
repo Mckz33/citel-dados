@@ -1,9 +1,10 @@
 package com.citel.javadados.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,15 +33,14 @@ public class CandidatoController {
     public CandidatoService candidatoService;
 
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
+    public ResponseEntity<Resposta> save(@RequestBody List<CandidatoModel> candidatoDto) {
         // List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
         /// List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
 
         // BeanUtils.copyProperties(candidatoDto, candidatoModel);
         /// candidatoModelt.addAll(candidatoModel);
         Resposta resposta = candidatoService.processar(candidatoDto);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
+        return ResponseEntity.ok(resposta);
     }
 
     @GetMapping

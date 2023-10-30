@@ -1,3 +1,4 @@
+import { Pessoa } from './../../models/pessoa';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,11 +9,13 @@ import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
 })
 export class CandidatosPorEstadoService {
 
-  private baseURL = "http://localhost:3000";
+  private baseURL = "http://localhost:8080";
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  get(): Observable<any> {
-    return this.httpClient.get<CandidatosPorEstado[]>(`${this.baseURL}/candidatosPorEstado`)
+
+  postData(pessoas: Array<Pessoa>) {
+    const url = `${this.baseURL}/imc`;
+    return this.httpClient.post(url, pessoas);
   }
 }

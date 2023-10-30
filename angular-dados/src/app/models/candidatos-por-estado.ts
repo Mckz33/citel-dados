@@ -1,30 +1,23 @@
-export interface CandidatosPorEstado {
-    id: number;
-    RR: number;
-    RS: number;
-    PR: number;
-    DF: number;
-    SC: number;
-    SE: number;
-    MA: number;
-    MG: number;
-    SP: number;
-    AC: number;
-    CE: number;
-    MS: number;
-    MT: number;
-    GO: number;
-    AL: number;
-    AM: number;
-    ES: number;
-    AP: number;
-    PA: number;
-    PB: number;
-    PE: number;
-    RJ: number;
-    PI: number;
-    TO: number;
-    RN: number;
-    RO: number;
-    BA: number;
+export class CandidatosPorEstado {
+    candidatosPorEstado: EstatisticaItem[];
+    imcMedioPorFaixaEtaria: EstatisticaItem[];
+    percentualObesos: EstatisticaItem;
+    mediaIdadePorTipoSanguineo: EstatisticaItem[];
+    possiveisDoadoresPorTipoSanguineo: EstatisticaItem[];
+
+    constructor(candidatosPorEstado: EstatisticaItem[],
+        imcMedioPorFaixaEtaria: EstatisticaItem[],
+        percentualObesos: EstatisticaItem,
+        mediaIdadePorTipoSanguineo: EstatisticaItem[],
+        possiveisDoadoresPorTipoSanguineo: EstatisticaItem[]) {
+        this.candidatosPorEstado = candidatosPorEstado;
+        this.imcMedioPorFaixaEtaria = imcMedioPorFaixaEtaria;
+        this.percentualObesos = percentualObesos;
+        this.mediaIdadePorTipoSanguineo = mediaIdadePorTipoSanguineo;
+        this.possiveisDoadoresPorTipoSanguineo = possiveisDoadoresPorTipoSanguineo;
+    }
+}
+
+export class EstatisticaItem {
+    constructor(public descricao: string, public valor: number) { }
 }
