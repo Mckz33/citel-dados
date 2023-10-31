@@ -23,8 +23,6 @@ export class HomeComponent implements AfterViewInit {
   public pessoas: Array<Pessoa> = [];
   public resposta!: CandidatosPorEstado;
 
-  displayedColumns = ['Estado', 'Quantidade'];
-
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
 
   onFileSelected(event: any) {
@@ -44,15 +42,14 @@ export class HomeComponent implements AfterViewInit {
           this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
             (res: any) => {
               this.resposta = res;
-              
+
               // Distribua os dados para diferentes dataSources
               this.dataSourceCandidatos = Object.entries(this.resposta.candidatosPorEstado || {});
               this.dataSourceImcMedio = Object.entries(this.resposta.imcMedioPorFaixaEtaria || {});
               this.dataSourceMediaIdade = Object.entries(this.resposta.mediaIdadePorTipoSanguineo || {});
               this.dataSourceDoadores = Object.entries(this.resposta.possiveisDoadoresPorTipoSanguineo || {});
-              
-              // Inicialmente, exiba os candidatos por estado
-              this.pagedItems = this.dataSourceCandidatos;
+
+              this.dataSource = this.dataSourceCandidatos;
               this.updatePagedItems();
             }
           );
@@ -74,7 +71,6 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  // Método para atualizar os itens paginados com base na página atual do paginador
   updatePagedItems(): void {
     const startItem = this.paginator.pageIndex * this.paginator.pageSize;
     const endItem = startItem + this.paginator.pageSize;
@@ -82,22 +78,23 @@ export class HomeComponent implements AfterViewInit {
   }
 
   changeTab(tabIndex: number): void {
-    switch(tabIndex) {
+    switch (tabIndex) {
       case 0:
-        this.pagedItems = this.dataSourceCandidatos;
+        this.dataSource = this.dataSourceCandidatos;
         break;
       case 1:
-        this.pagedItems = this.dataSourceImcMedio;
+        this.dataSource = this.dataSourceImcMedio;
         break;
       case 2:
-        this.pagedItems = this.dataSourceMediaIdade;
+        this.dataSource = this.dataSourceMediaIdade;
         break;
       case 3:
-        this.pagedItems = this.dataSourceDoadores;
+        this.dataSource = this.dataSourceDoadores;
         break;
       default:
-        this.pagedItems = [];
+        this.dataSource = [];
     }
+    this.paginator.length = this.dataSource.length;  // Atualizar o comprimento do paginador
     this.updatePagedItems();
   }
 }
