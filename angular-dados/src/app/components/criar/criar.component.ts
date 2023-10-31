@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pessoa } from 'src/app/models/pessoa';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
 
@@ -8,25 +8,22 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
   templateUrl: './criar.component.html',
   styleUrls: ['./criar.component.css']
 })
-export class CriarComponent implements AfterViewInit {
-
-  dataSource: { key: string, value: number }[] = [];
-  pagedItems: { key: string, value: number }[] = [];
-
-  // Variáveis adicionadas
-  candidatosPorEstado: { key: string, value: number }[] = [];
-  imcMedioPorFaixaEtaria: { key: string, value: number }[] = [];
-  percentualObesosHomens: number = 0;
-  percentualObesosMulheres: number = 0;
-  mediaIdadePorTipoSanguineo: { key: string, value: number }[] = [];
-  possiveisDoadoresPorTipoSanguineo: { key: string, value: number }[] = [];
+export class CriarComponent implements OnInit {
 
   public pessoas: Array<Pessoa> = [];
+  public tables: any[] = [];
+  public totalElements: number = 0;
+  public columns: string[] = [];
+
   public resposta: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
+
+  ngOnInit(): void {
+    this.fetchData();
+  }
 
   onFileSelected(event: any) {
     console.log("Evento de seleção de arquivo acionado");
@@ -42,11 +39,10 @@ export class CriarComponent implements AfterViewInit {
           console.log(jsonData);
 
           this.pessoas = jsonData;
-          this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
+          this.candidatosPorEstadoService.allPostData(this.pessoas).subscribe(
             (res: any) => {
               this.resposta = res;
               console.log(this.resposta);
-              this.prepareData(this.resposta);
             },
             (error: any) => {
               console.error('Erro na requisição:', error);
@@ -62,32 +58,52 @@ export class CriarComponent implements AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.paginator.page.subscribe(() => {
-      this.updatePagedItems();
-    });
+
+  fetchData(event?: PageEvent): void {
+    const page = event ? event.pageIndex : 0;
+    const size = event ? event.pageSize : 20;
+
+    this.candidatosPorEstadoService.getData(page, size).subscribe(
+      (res: any) => {
+        console.log('Resposta do servidor:', res);
+        if (res && Array.isArray(res.content) && res.content.every((item: any) => typeof item === 'object')) {
+          this.pessoas = res.content;
+          this.totalElements = res.totalElements;
+          if (this.pessoas.length > 0) {
+            this.columns = Object.keys(this.pessoas[0]);
+          }
+          this.prepareTables(this.pessoas);
+        } else {
+          console.error('Erro: A resposta não contém um array de objetos válido:', res);
+        }
+      },
+      (error: any) => {
+        console.error('Erro na requisição:', error);
+      }
+    );
   }
 
-  updatePagedItems(): void {
-    const startItem = this.paginator.pageIndex * this.paginator.pageSize;
-    const endItem = startItem + this.paginator.pageSize;
-    this.pagedItems = this.dataSource.slice(startItem, endItem);
-  }
-
-  prepareData(resposta: any): void {
-    // Preparando os dados para cada categoria
-    if (resposta) {
-      this.candidatosPorEstado = Object.entries(resposta.candidatosPorEstado || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.imcMedioPorFaixaEtaria = Object.entries(resposta.imcMedioPorFaixaEtaria || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.percentualObesosHomens = Number(resposta.percentualObesosHomens);
-      this.percentualObesosMulheres = Number(resposta.percentualObesosMulheres);
-      this.mediaIdadePorTipoSanguineo = Object.entries(resposta.mediaIdadePorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.possiveisDoadoresPorTipoSanguineo = Object.entries(resposta.possiveisDoadoresPorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
-
-      this.dataSource = [...this.candidatosPorEstado, ...this.imcMedioPorFaixaEtaria, ...this.mediaIdadePorTipoSanguineo, ...this.possiveisDoadoresPorTipoSanguineo];
-      this.updatePagedItems();
-    } else {
-      console.error('Resposta inesperada:', resposta);
+  prepareTables(pessoas: Pessoa[]): void {
+    // Criando uma tabela para exibir as informações dos candidatos
+    const table = {
+      title: 'Candidatos',
+      data: [] as any[]
+    };
+  
+    // Adicionando os cabeçalhos das colunas
+    if (pessoas.length > 0) {
+      table.data.push(Object.keys(pessoas[0]).map(key => [key]));
     }
+  
+    // Adicionando os dados dos candidatos
+    pessoas.forEach(pessoa => {
+      table.data.push(Object.values(pessoa).map(value => [value]));
+    });
+  
+    // Limpando a lista de tabelas antes de adicionar a nova tabela
+    this.tables = [];
+    
+    // Adicionando a tabela criada à lista de tabelas
+    this.tables.push(table);
   }
 }

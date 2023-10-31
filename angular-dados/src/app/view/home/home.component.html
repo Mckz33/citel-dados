@@ -1,89 +1,70 @@
-<mat-card class="home mat-elevation-z4">
-  <mat-card-title class="title">
-    Bem vindo ao Banco de Sangue!
-  </mat-card-title>
-  <mat-card-subtitle class="subtitle">
-    Sistema para exemplificar a construção de um Banco de sangue de alta qualidade
-    <i class="material-icons">
-      mood mood mood
-    </i>
-  </mat-card-subtitle>
-</mat-card>
-
 <input type="file" (change)="onFileSelected($event)">
 
-
-<mat-tab-group (selectedTabChange)="changeTab($event.index)">
-  <mat-tab label="Candidados do Brasil">
-    <table>
-      <tr>
-        <th>Estado</th>
-        <th>Quantidade de Candidatos</th>
-      </tr>
-      <tr *ngFor="let item of pagedItems">
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }}</td>
-      </tr>
-    </table>
-  </mat-tab>
-
-  <mat-tab label="Faixa de Idade">
-    <table>
-      <tr>
-        <th>Margem de Idades</th>
-        <th>Média de Idades</th>
-      </tr>
-
-      <tr *ngFor="let item of pagedItems">
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }}</td>
-      </tr>
-    </table>
-  </mat-tab>
-
-  <mat-tab label="Obesos por Genero">
-    <table>
-      <tr>
-        <th>Homens Obesos</th>
-        <th>Mulheres Obesos</th>
-      </tr>
-
-      <tr *ngFor="let item">
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }}</td>
-      </tr>
-    </table>
-  </mat-tab>
-
-  <mat-tab label="Média por Tipo Sanguineo">
-    <table>
-      <tr>
-        <th>Tipo Sanguineo</th>
-        <th>Média de Cada Tipo</th>
-      </tr>
-
-      <tr *ngFor="let item of pagedItems">
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }}</td>
-      </tr>
-    </table>
-  </mat-tab>
-
-  <mat-tab label="Possíveis Doadores">
-    <table>
-      <tr>
-        <th>Tipo Sanguineo</th>
-        <th>Quantidade de Doações</th>
-      </tr>
-
-      <tr *ngFor="let item of dataSourceDoadores">
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }}</td>
-      </tr>
-    </table>
-  </mat-tab>
-</mat-tab-group>
-
-
-<mat-paginator [length]="pagedItems.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
 </mat-paginator>
+<mat-tab-group>
+    <mat-tab label="Candidatos por Estado"> 
+        <table>
+          <tr>
+            <th>Estado</th>
+            <th>Quantidade de Candidatos</th>
+          </tr>
+          <tr *ngFor="let item of candidatosPorEstado">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td> 
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="IMC Médio por Faixa Etária">
+        <table>
+          <tr>
+            <th>Faixa Etária</th>
+            <th>IMC Médio</th>
+          </tr>
+          <tr *ngFor="let item of imcMedioPorFaixaEtaria">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Percentual de Obesos">
+        <table>
+          <tr>
+            <th>Percentual Obesos Homens</th>
+            <td>{{ percentualObesosHomens }}</td>
+          </tr>
+          <tr>
+            <th>Percentual Obesos Mulheres</th>
+            <td>{{ percentualObesosMulheres }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Média de Idade por Tipo Sanguíneo">
+        <table>
+          <tr>
+            <th>Tipo Sanguíneo</th>
+            <th>Média de Idade</th>
+          </tr>
+          <tr *ngFor="let item of mediaIdadePorTipoSanguineo">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Possíveis Doadores por Tipo Sanguíneo">
+        <table>
+          <tr>
+            <th>Tipo Sanguíneo</th>
+            <th>Possíveis Doadores</th>
+          </tr>
+          <tr *ngFor="let item of possiveisDoadoresPorTipoSanguineo">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+</mat-tab-group>

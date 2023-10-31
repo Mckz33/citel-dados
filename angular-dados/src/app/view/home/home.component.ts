@@ -11,17 +11,21 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
 })
 export class HomeComponent implements AfterViewInit {
 
-  dataSource: any[] = []; // Todos os dados para exibição
-  pagedItems: any[] = []; // Itens da página atual
+  dataSource: { key: string, value: number }[] = [];
+  pagedItems: { key: string, value: number }[] = [];
 
-  dataSourceCandidatos: any[] = [];
-  dataSourceImcMedio: any[] = [];
-  dataSourceMediaIdade: any[] = [];
-  dataSourceDoadores: any[] = [];
+  // Variáveis adicionadas
+  candidatosPorEstado: { key: string, value: number }[] = [];
+  imcMedioPorFaixaEtaria: { key: string, value: number }[] = [];
+  percentualObesosHomens: number = 0;
+  percentualObesosMulheres: number = 0;
+  mediaIdadePorTipoSanguineo: { key: string, value: number }[] = [];
+  possiveisDoadoresPorTipoSanguineo: { key: string, value: number }[] = [];
 
-  candidatosPorEstado: CandidatosPorEstado[] = [];
   public pessoas: Array<Pessoa> = [];
-  public resposta!: CandidatosPorEstado;
+  public resposta: any;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
 
@@ -42,17 +46,12 @@ export class HomeComponent implements AfterViewInit {
           this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
             (res: any) => {
               this.resposta = res;
-
-              // Distribua os dados para diferentes dataSources
-              this.dataSourceCandidatos = Object.entries(this.resposta.candidatosPorEstado || {});
-              this.dataSourceImcMedio = Object.entries(this.resposta.imcMedioPorFaixaEtaria || {});
-              this.dataSourceMediaIdade = Object.entries(this.resposta.mediaIdadePorTipoSanguineo || {});
-              this.dataSourceDoadores = Object.entries(this.resposta.possiveisDoadoresPorTipoSanguineo || {});
-
-              this.dataSource = this.dataSourceCandidatos;
-              this.updatePagedItems();  
+              console.log(this.resposta);
+              this.prepareData(this.resposta);
+            },
+            (error: any) => {
+              console.error('Erro na requisição:', error);
             }
-            
           );
         } catch (e) {
           console.error('Erro ao parsear o arquivo JSON', e);
@@ -63,8 +62,6 @@ export class HomeComponent implements AfterViewInit {
       };
     }
   }
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit(): void {
     this.paginator.page.subscribe(() => {
@@ -78,24 +75,20 @@ export class HomeComponent implements AfterViewInit {
     this.pagedItems = this.dataSource.slice(startItem, endItem);
   }
 
-  changeTab(tabIndex: number): void {
-    switch (tabIndex) {
-      case 0:
-        this.dataSource = this.dataSourceCandidatos;
-        break;
-      case 1:
-        this.dataSource = this.dataSourceImcMedio;
-        break;
-      case 2:
-        this.dataSource = this.dataSourceMediaIdade;
-        break;
-      case 3:
-        this.dataSource = this.dataSourceDoadores;
-        break;
-      default:
-        this.dataSource = [];
+  prepareData(resposta: any): void {
+    // Preparando os dados para cada categoria
+    if (resposta) {
+      this.candidatosPorEstado = Object.entries(resposta.candidatosPorEstado || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.imcMedioPorFaixaEtaria = Object.entries(resposta.imcMedioPorFaixaEtaria || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.percentualObesosHomens = Number(resposta.percentualObesosHomens);
+      this.percentualObesosMulheres = Number(resposta.percentualObesosMulheres);
+      this.mediaIdadePorTipoSanguineo = Object.entries(resposta.mediaIdadePorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.possiveisDoadoresPorTipoSanguineo = Object.entries(resposta.possiveisDoadoresPorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
+
+      this.dataSource = [...this.candidatosPorEstado, ...this.imcMedioPorFaixaEtaria, ...this.mediaIdadePorTipoSanguineo, ...this.possiveisDoadoresPorTipoSanguineo];
+      this.updatePagedItems();
+    } else {
+      console.error('Resposta inesperada:', resposta);
     }
-    this.paginator.length = this.dataSource.length;  // Atualizar o comprimento do paginador
-    this.updatePagedItems();
   }
 }

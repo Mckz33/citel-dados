@@ -37,6 +37,15 @@ public class CandidatoController {
         // BeanUtils.copyProperties(candidatoDto, candidatoModel);
         /// candidatoModelt.addAll(candidatoModel);
         Resposta resposta = candidatoService.processar(candidatoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
+    }
+    @PostMapping("/save-all")
+    public ResponseEntity<Object> saveAll(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
+        // List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
+        /// List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
+        // BeanUtils.copyProperties(candidatoDto, candidatoModel);
+        /// candidatoModelt.addAll(candidatoModel);
+        Resposta resposta = candidatoService.processar(candidatoDto);
         candidatoService.saveAll(candidatoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }

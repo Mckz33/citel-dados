@@ -1,70 +1,31 @@
 <input type="file" (change)="onFileSelected($event)">
 
-<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
-</mat-paginator>
-<mat-tab-group>
-    <mat-tab label="Candidatos por Estado"> 
-        <table>
-          <tr>
-            <th>Estado</th>
-            <th>Quantidade de Candidatos</th>
-          </tr>
-          <tr *ngFor="let item of candidatosPorEstado">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td> 
-          </tr>
-        </table>
-    </mat-tab>
+<!-- Seção para exibir as tabelas -->
+<div *ngIf="pessoas.length > 0; else noData">
+  <div *ngFor="let table of tables" class="mt-4">
+    <!-- Tabela Angular Material -->
+    <mat-table [dataSource]="pessoas">
 
-    <mat-tab label="IMC Médio por Faixa Etária">
-        <table>
-          <tr>
-            <th>Faixa Etária</th>
-            <th>IMC Médio</th>
-          </tr>
-          <tr *ngFor="let item of imcMedioPorFaixaEtaria">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
-    </mat-tab>
+      <!-- Definir colunas -->
+      <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+        <mat-header-cell *matHeaderCellDef> {{ col }} </mat-header-cell>
+        <mat-cell *matCellDef="let pessoa"> {{ pessoa[col] }} </mat-cell>
+      </ng-container>
 
-    <mat-tab label="Percentual de Obesos">
-        <table>
-          <tr>
-            <th>Percentual Obesos Homens</th>
-            <td>{{ percentualObesosHomens }}</td>
-          </tr>
-          <tr>
-            <th>Percentual Obesos Mulheres</th>
-            <td>{{ percentualObesosMulheres }}</td>
-          </tr>
-        </table>
-    </mat-tab>
+      <!-- Cabeçalho e Linhas -->
+      <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columns"></mat-row>
 
-    <mat-tab label="Média de Idade por Tipo Sanguíneo">
-        <table>
-          <tr>
-            <th>Tipo Sanguíneo</th>
-            <th>Média de Idade</th>
-          </tr>
-          <tr *ngFor="let item of mediaIdadePorTipoSanguineo">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
-    </mat-tab>
+    </mat-table>
 
-    <mat-tab label="Possíveis Doadores por Tipo Sanguíneo">
-        <table>
-          <tr>
-            <th>Tipo Sanguíneo</th>
-            <th>Possíveis Doadores</th>
-          </tr>
-          <tr *ngFor="let item of possiveisDoadoresPorTipoSanguineo">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
-    </mat-tab>
-</mat-tab-group>
+    <!-- Paginador -->
+    <mat-paginator [length]="totalElements" [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]"
+      (page)="fetchData($event)">
+    </mat-paginator>
+  </div>
+</div>
+
+<!-- Mensagem quando não há dados -->
+<ng-template #noData>
+  <p>Nenhum candidato encontrado.</p>
+</ng-template>
