@@ -12,9 +12,6 @@
 
 <input type="file" (change)="onFileSelected($event)">
 
-<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
-</mat-paginator>
-
 
 <mat-tab-group (selectedTabChange)="changeTab($event.index)">
   <mat-tab label="Candidados do Brasil">
@@ -86,3 +83,7 @@
     </table>
   </mat-tab>
 </mat-tab-group>
+
+
+<mat-paginator [length]="pagedItems.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>

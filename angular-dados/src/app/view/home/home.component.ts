@@ -50,8 +50,9 @@ export class HomeComponent implements AfterViewInit {
               this.dataSourceDoadores = Object.entries(this.resposta.possiveisDoadoresPorTipoSanguineo || {});
 
               this.dataSource = this.dataSourceCandidatos;
-              this.updatePagedItems();
+              this.updatePagedItems();  
             }
+            
           );
         } catch (e) {
           console.error('Erro ao parsear o arquivo JSON', e);
