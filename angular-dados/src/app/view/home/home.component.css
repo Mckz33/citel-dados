@@ -4,8 +4,48 @@
     line-height: 1.2;
     padding: 10px;
 }
+
 .home .subtitle {
     font-size: 1.1rem;
     padding-left: 10px;
     padding-bottom: 20px;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+    width: 100%;
+    margin-top: 21px;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+    width: 120px;
+}
+
+th {
+    font-weight: bold;
+}
+
+
+tr:nth-child(even) {
+    background-color: #DCEBE6;
+}
+
+tr:hover:nth-child(1n + 2) {
+    background-color: #085F63;
+    color: #fff;
 }

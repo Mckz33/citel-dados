@@ -1,17 +1,15 @@
-import { ImcMedioPorFaixaEtariaService } from './../../services/imc-medio-por-faixa-etaria/imc-medio-por-faixa-etaria.service';
-import { ImcFaixaEtaria } from './../../models/imc-faixa-etaria';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
-import { Pessoa } from 'src/app/models/pessoa';
 import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
+import { Pessoa } from 'src/app/models/pessoa';
+import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
 
 @Component({
-  selector: 'app-imc-medio-faixa-etaria',
-  templateUrl: './imc-medio-faixa-etaria.component.html',
-  styleUrls: ['./imc-medio-faixa-etaria.component.css']
+  selector: 'app-criar',
+  templateUrl: './criar.component.html',
+  styleUrls: ['./criar.component.css']
 })
-export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
+export class CriarComponent implements AfterViewInit {
 
   dataSource: any[] = []; // Todos os dados para exibição
   pagedItems: any[] = []; // Itens da página atual
@@ -23,6 +21,7 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
   displayedColumns = ['Estado', 'Quantidade'];
 
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
+
 
   onFileSelected(event: any) {
     console.log("Evento de seleção de arquivo acionado");
@@ -37,12 +36,15 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
           const jsonData = JSON.parse(fileContents);
           console.log(jsonData);
 
+          // Armazenando o JSON em um cookie de sessão
+          this.setSessionCookie("myJsonData", JSON.stringify(jsonData));
+
           this.pessoas = jsonData;
           this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
             (res: any) => {
               this.resposta = res;
               console.log(this.resposta);
-              this.dataSource = Object.entries(this.resposta.imcMedioPorFaixaEtaria || {});
+              this.dataSource = Object.entries(this.resposta.percentualObesos || {});
               this.updatePagedItems(); // Atualiza os itens paginados após carregar os novos dados
             }
           );
@@ -54,6 +56,11 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
         console.error('Erro ao ler arquivo', evt);
       };
     }
+  }
+
+  // Método para definir um cookie de sessão
+  setSessionCookie(name: string, value: string): void {
+    document.cookie = `${name}=${encodeURIComponent(value)};path=/`;
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -71,5 +78,4 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
     this.pagedItems = this.dataSource.slice(startItem, endItem);
   }
 }
-
 

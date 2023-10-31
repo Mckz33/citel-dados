@@ -28,6 +28,9 @@ import { HomeComponent } from './view/home/home.component';
 import { ObesosGeneroComponent } from './components/obesos-genero/obesos-genero.component';
 import { MediaIdadeSanguineoComponent } from './components/media-idade-sanguineo/media-idade-sanguineo.component';
 import { DoadoresTipoSanguineoComponent } from './components/doadores-tipo-sanguineo/doadores-tipo-sanguineo.component';
+import { CriarComponent } from './components/criar/criar.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { DoadoresTipoSanguineoComponent } from './components/doadores-tipo-sangu
     HomeComponent,
     ObesosGeneroComponent,
     MediaIdadeSanguineoComponent,
-    DoadoresTipoSanguineoComponent
+    DoadoresTipoSanguineoComponent,
+    CriarComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,9 @@ import { DoadoresTipoSanguineoComponent } from './components/doadores-tipo-sangu
     FormsModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
