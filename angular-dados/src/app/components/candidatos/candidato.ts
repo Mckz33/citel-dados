@@ -1,17 +1,16 @@
-import { ImcMedioPorFaixaEtariaService } from './../../services/imc-medio-por-faixa-etaria/imc-medio-por-faixa-etaria.service';
-import { ImcFaixaEtaria } from './../../models/imc-faixa-etaria';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Pessoa } from '../../models/pessoa';
+import { CandidatosPorEstado } from 'src/app/models/candidatos';
+
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
-import { Pessoa } from 'src/app/models/pessoa';
-import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-imc-medio-faixa-etaria',
-  templateUrl: './imc-medio-faixa-etaria.component.html',
-  styleUrls: ['./imc-medio-faixa-etaria.component.css']
+  selector: 'app-candidato-por-estado',
+  templateUrl: './candidato.html',
+  styleUrls: ['./candidato.css']
 })
-export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
+export class CandidatoPorEstadoComponent implements AfterViewInit {
 
   dataSource: any[] = []; // Todos os dados para exibição
   pagedItems: any[] = []; // Itens da página atual
@@ -42,7 +41,7 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
             (res: any) => {
               this.resposta = res;
               console.log(this.resposta);
-              this.dataSource = Object.entries(this.resposta.imcMedioPorFaixaEtaria || {});
+              this.dataSource = Object.entries(this.resposta.candidatosPorEstado || {});
               this.updatePagedItems(); // Atualiza os itens paginados após carregar os novos dados
             }
           );
@@ -71,5 +70,4 @@ export class ImcMedioFaixaEtariaComponent implements AfterViewInit {
     this.pagedItems = this.dataSource.slice(startItem, endItem);
   }
 }
-
 

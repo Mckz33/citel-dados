@@ -4,9 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CandidatoPorEstadoComponent } from './components/candidato-por-estado/candidato-por-estado.component';
+import { CandidatoPorEstadoComponent } from './components/candidatos/candidato';
 import { RouterModule } from '@angular/router';
-import { ImcMedioFaixaEtariaComponent } from './components/imc-medio-faixa-etaria/imc-medio-faixa-etaria.component';
 import { HeaderComponent } from './template/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavComponent } from './template/nav/nav.component';
@@ -23,11 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FooterComponent } from './template/footer/footer.component';
-import { ListarCandidatosBrasilComponent } from './view/listar-candidatos-brasil/listar-candidatos-brasil.component';
 import { HomeComponent } from './view/home/home.component';
-import { ObesosGeneroComponent } from './components/obesos-genero/obesos-genero.component';
-import { MediaIdadeSanguineoComponent } from './components/media-idade-sanguineo/media-idade-sanguineo.component';
-import { DoadoresTipoSanguineoComponent } from './components/doadores-tipo-sanguineo/doadores-tipo-sanguineo.component';
 import { CriarComponent } from './components/criar/criar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -37,15 +32,10 @@ import {MatTabsModule} from '@angular/material/tabs';
   declarations: [
     AppComponent,
     CandidatoPorEstadoComponent,
-    ImcMedioFaixaEtariaComponent,
     HeaderComponent,
     NavComponent,
     FooterComponent,
-    ListarCandidatosBrasilComponent,
     HomeComponent,
-    ObesosGeneroComponent,
-    MediaIdadeSanguineoComponent,
-    DoadoresTipoSanguineoComponent,
     CriarComponent
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { CandidatosPorEstado } from 'src/app/models/candidatos-por-estado';
+import { CandidatosPorEstado } from 'src/app/models/candidatos';
 import { Pessoa } from 'src/app/models/pessoa';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
 
