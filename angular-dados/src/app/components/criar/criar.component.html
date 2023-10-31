@@ -1,5 +1,10 @@
 <input type="file" (change)="onFileSelected($event)">
 
+<!-- Paginador -->
+<mat-paginator [length]="totalElements" [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]"
+  (page)="fetchData($event)">
+</mat-paginator>
+
 <!-- Seção para exibir as tabelas -->
 <div *ngIf="pessoas.length > 0; else noData">
   <div *ngFor="let table of tables" class="mt-4">
@@ -15,13 +20,7 @@
       <!-- Cabeçalho e Linhas -->
       <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: columns"></mat-row>
-
     </mat-table>
-
-    <!-- Paginador -->
-    <mat-paginator [length]="totalElements" [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]"
-      (page)="fetchData($event)">
-    </mat-paginator>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-<input type="file" (change)="onFileSelected($event)">
+
 
 <mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
 </mat-paginator>
@@ -24,7 +24,7 @@
           </tr>
           <tr *ngFor="let item of currentImcMedioPorFaixaEtaria">
             <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
+            <td>{{ item.value | number: '1.2-2' }}</td>
           </tr>
         </table>
     </mat-tab>
@@ -37,11 +37,11 @@
             </tr>
             <tr>
                 <td>Masculino</td>
-                <td>{{ percentualObesosHomens }}%</td>
+                <td>{{ percentualObesosHomens | number: '1.2-2' }}%</td>
             </tr>
             <tr>
                 <td>Feminino</td>
-                <td>{{ percentualObesosMulheres }}%</td>
+                <td>{{ percentualObesosMulheres | number: '1.2-2' }}%</td>
             </tr>
         </table>
     </mat-tab>
@@ -54,7 +54,7 @@
             </tr>
             <tr *ngFor="let item of currentMediaIdadePorTipoSanguineo">
                 <td>{{ item.key }}</td>
-                <td>{{ item.value }}</td>
+                <td>{{ item.value | number: '1.2-2' }}</td>
             </tr>
         </table>
     </mat-tab>

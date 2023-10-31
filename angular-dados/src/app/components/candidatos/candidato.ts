@@ -6,7 +6,7 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-candidato-por-estado',
+  selector: 'app-candidato',
   templateUrl: './candidato.html',
   styleUrls: ['./candidato.css']
 })

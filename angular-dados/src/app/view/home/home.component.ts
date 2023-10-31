@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Pessoa } from 'src/app/models/pessoa';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
@@ -8,7 +8,7 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit {
 
   dataSource: { key: string, value: number }[] = [];
 
@@ -31,22 +31,13 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
+  ngOnInit(): void {
+    this.process();
+    throw new Error('Method not implemented.');
+  }
 
-  onFileSelected(event: any) {
-    console.log("Evento de seleção de arquivo acionado");
-    const file: File = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsText(file, "UTF-8");
-      reader.onload = (evt: any) => {
-        const fileContents = evt.target.result;
-        try {
-          const jsonData = JSON.parse(fileContents);
-          console.log(jsonData);
-
-          this.pessoas = jsonData;
-          this.candidatosPorEstadoService.postData(this.pessoas).subscribe(
+  process(){
+          this.candidatosPorEstadoService.getDataValue().subscribe(
             (res: any) => {
               this.resposta = res;
               console.log(this.resposta);
@@ -56,15 +47,8 @@ export class HomeComponent implements AfterViewInit {
               console.error('Erro na requisição:', error);
             }
           );
-        } catch (e) {
-          console.error('Erro ao parsear o arquivo JSON', e);
-        }
-      };
-      reader.onerror = (evt) => {
-        console.error('Erro ao ler arquivo', evt);
-      };
-    }
-  }
+     
+      }
 
   ngAfterViewInit(): void {
     this.paginator.page.subscribe(() => {
@@ -83,12 +67,12 @@ export class HomeComponent implements AfterViewInit {
 
   prepareData(resposta: any): void {
     if (resposta) {
-      this.candidatosPorEstado = Object.entries(resposta.candidatosPorEstado || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.imcMedioPorFaixaEtaria = Object.entries(resposta.imcMedioPorFaixaEtaria || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.percentualObesosHomens = Number(resposta.percentualObesosHomens);
-      this.percentualObesosMulheres = Number(resposta.percentualObesosMulheres);
-      this.mediaIdadePorTipoSanguineo = Object.entries(resposta.mediaIdadePorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
-      this.possiveisDoadoresPorTipoSanguineo = Object.entries(resposta.possiveisDoadoresPorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.candidatosPorEstado = Object.entries(resposta.resultados.CandidatosPorEstado || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.imcMedioPorFaixaEtaria = Object.entries(resposta.resultados.EstatisticaIMCMedioPorFaixaEtaria || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.percentualObesosHomens = Number(resposta.resultados.EstatisticaObesidadePorGenero.PercentualObesosHomens);
+      this.percentualObesosMulheres = Number(resposta.resultados.EstatisticaObesidadePorGenero.PercentualObesosMulheres);
+      this.mediaIdadePorTipoSanguineo = Object.entries(resposta.resultados.EstatisticaMediaIdadePorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
+      this.possiveisDoadoresPorTipoSanguineo = Object.entries(resposta.resultados.PossiveisDoadoresPorTipoSanguineo || {}).map(([key, value]) => ({ key, value: Number(value) }));
 
       this.dataSource = [...this.candidatosPorEstado, ...this.imcMedioPorFaixaEtaria, ...this.mediaIdadePorTipoSanguineo, ...this.possiveisDoadoresPorTipoSanguineo];
       this.updatePagedItems();

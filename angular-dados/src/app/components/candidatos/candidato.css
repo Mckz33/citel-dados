@@ -33,3 +33,38 @@ tr:hover:nth-child(1n + 2) {
   background-color: #085F63;
   color: #fff;
 }
+
+/* styles.css */
+
+/* Estilize o rótulo do input */
+.mat-form-field-label {
+  font-weight: bold;
+  color: #333; /* Cor do texto do rótulo */
+}
+
+/* Estilize o contorno do input quando não estiver focado */
+.mat-form-field.mat-focused .mat-form-field-outline-start, 
+.mat-form-field.mat-focused .mat-form-field-outline-end {
+  border-color: #007ACC; /* Cor da borda quando o input está focado */
+}
+
+/* Estilize o contorno do input quando estiver focado */
+.mat-form-field.mat-focused .mat-form-field-outline-thick {
+  border-color: #007ACC; /* Cor da borda quando o input está focado */
+}
+
+/* Estilize o input de arquivo */
+.mat-input-element[type="file"] {
+  opacity: 0; /* Torna o input de arquivo invisível */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer; /* Altera o cursor para o estilo de mão quando pairar sobre o rótulo */
+}
+
+/* Estilize o rótulo quando o arquivo é selecionado */
+.mat-input-element[type="file"]:not([value=""]):not(:focus) + .mat-form-field-label {
+  color: #007ACC; /* Cor do rótulo quando o arquivo é selecionado */
+}

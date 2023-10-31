@@ -1,0 +1,29 @@
+INSTALAÇÂO:
+
+1- git clone
+2-npm install
+3- ng serve OR npm start
+
+
+
+O sistema foi desenvolvido utilizando a combinação de Spring Boot e Angular Material, sem a necessidade de utilizar bibliotecas adicionais. Essa escolha de tecnologia demonstra a eficiência e a simplicidade da arquitetura, proporcionando uma implementação mais enxuta e fácil de manter.
+
+
+
+Neste relatório, será apresentada uma descrição das funcionalidades das páginas de um sistema, destacando suas principais características e o fluxo de informações entre elas.
+
+Página Início:
+
+A Página Início é a primeira tela que o usuário encontra ao acessar o sistema. Sua principal funcionalidade é permitir que o usuário faça o upload de um arquivo JSON. Quando o usuário insere o arquivo, o backend realiza uma varredura e extrai os resultados dos serviços contidos nesse arquivo. Essas informações são temporariamente armazenadas em "memória", o que significa que elas permanecem disponíveis enquanto o usuário não trocar de página ou atualizar os dados. Para garantir a persistência desses dados mesmo após uma mudança de página ou atualização, é sugerido o uso do sessionStorage.
+
+A Página Início também oferece uma funcionalidade de navegação intuitiva por meio de abas (mat-tabs), que permitem ao usuário alternar entre diferentes conjuntos de informações sem perder os dados previamente carregados. Isso proporciona uma experiência de usuário mais eficiente e organizada.
+
+Página Tabelas:
+
+A Página Tabelas é dedicada à apresentação de informações resultantes de consultas específicas realizadas a partir dos dados inseridos na Página Início. Aqui, os dados são exibidos de forma tabular, tornando a visualização e análise mais conveniente. É importante ressaltar que os dados exibidos nesta página são resultados de consultas, não são armazenados permanentemente no sistema. Portanto, qualquer atualização ou nova consulta requer que o usuário retorne à Página Início.
+
+Página Cadastrar:
+
+A Página Cadastrar segue um esquema semelhante à Página Início em termos de inserção de dados, permitindo que o usuário faça upload de um arquivo JSON. No entanto, a principal diferença é que as informações inseridas nesta página são salvas no banco de dados do sistema. Para isso, é executada uma operação de POST para armazenar as informações e, posteriormente, uma operação de GET para recuperar os dados armazenados.
+
+Essa página é especialmente útil para o usuário quando deseja armazenar permanentemente informações relevantes para o sistema, que podem ser consultadas posteriormente. Isso permite a criação de um repositório de dados que pode ser acessado e gerenciado de forma eficaz.

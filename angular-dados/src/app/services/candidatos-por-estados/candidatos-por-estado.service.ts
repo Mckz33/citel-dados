@@ -13,13 +13,20 @@ export class CandidatosPorEstadoService {
   constructor(private httpClient: HttpClient) { }
 
   postData(pessoas: Array<Pessoa>) {
-    const url = `${this.baseURL}/imc`;
+    const url = `${this.baseURL}/candidato`;
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.httpClient.post(url, pessoas, {headers: headers});
   }
 
+  getDataValue(): Observable<any> {
+    const url = `${this.baseURL}/estatisticas/gerar`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.httpClient.get(url, { headers });
+  }
+
   allPostData(pessoas: Array<Pessoa>) {
-    const url = `${this.baseURL}/imc/save-all`;
+    const url = `${this.baseURL}/candidato/save-all`;
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.httpClient.post(url, pessoas, {headers: headers});
   }
