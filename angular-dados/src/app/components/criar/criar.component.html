@@ -1,25 +1,70 @@
 <input type="file" (change)="onFileSelected($event)">
 
-
+<mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
+</mat-paginator>
 <mat-tab-group>
-    <mat-tab label="First"> 
-        <mat-paginator [length]="dataSource.length" [pageSize]="10" [pageSizeOptions]="[5, 10]">
-        </mat-paginator>
+    <mat-tab label="Candidatos por Estado"> 
         <table>
           <tr>
             <th>Estado</th>
             <th>Quantidade de Candidatos</th>
           </tr>
-        
-          <tr *ngFor="let item of pagedItems">
-            <td>{{ item[0] }}</td>
-            <td>{{ item[1] }}</td> 
+          <tr *ngFor="let item of candidatosPorEstado">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td> 
           </tr>
         </table>
     </mat-tab>
 
+    <mat-tab label="IMC Médio por Faixa Etária">
+        <table>
+          <tr>
+            <th>Faixa Etária</th>
+            <th>IMC Médio</th>
+          </tr>
+          <tr *ngFor="let item of imcMedioPorFaixaEtaria">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
 
-    
-    <mat-tab label="Second"> Content 2 </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
+    <mat-tab label="Percentual de Obesos">
+        <table>
+          <tr>
+            <th>Percentual Obesos Homens</th>
+            <td>{{ percentualObesosHomens }}</td>
+          </tr>
+          <tr>
+            <th>Percentual Obesos Mulheres</th>
+            <td>{{ percentualObesosMulheres }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Média de Idade por Tipo Sanguíneo">
+        <table>
+          <tr>
+            <th>Tipo Sanguíneo</th>
+            <th>Média de Idade</th>
+          </tr>
+          <tr *ngFor="let item of mediaIdadePorTipoSanguineo">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
+
+    <mat-tab label="Possíveis Doadores por Tipo Sanguíneo">
+        <table>
+          <tr>
+            <th>Tipo Sanguíneo</th>
+            <th>Possíveis Doadores</th>
+          </tr>
+          <tr *ngFor="let item of possiveisDoadoresPorTipoSanguineo">
+            <td>{{ item.key }}</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+    </mat-tab>
 </mat-tab-group>

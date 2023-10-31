@@ -49,6 +49,10 @@ public class CandidatoService {
         return candidatoRepository.findByDataNascContaining(dataNasc, pageable);
     }
 
+    public void saveAll(List<CandidatoModel> candidatos) {
+        candidatoRepository.saveAll(candidatos);
+    }
+
     public Resposta processar(List<CandidatoModel> candidatos) {
         Resposta resposta = new Resposta();
 

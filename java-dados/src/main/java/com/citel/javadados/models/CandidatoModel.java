@@ -1,7 +1,6 @@
 package com.citel.javadados.models;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 

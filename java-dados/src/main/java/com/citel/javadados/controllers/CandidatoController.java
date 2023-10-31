@@ -1,10 +1,8 @@
 package com.citel.javadados.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,10 +34,10 @@ public class CandidatoController {
     public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
         // List<CandidatoModel> candidatoModel = new ArrayList<CandidatoModel >();
         /// List<CandidatoModel> candidatoModelt = new ArrayList<CandidatoModel>();
-
         // BeanUtils.copyProperties(candidatoDto, candidatoModel);
         /// candidatoModelt.addAll(candidatoModel);
         Resposta resposta = candidatoService.processar(candidatoDto);
+        candidatoService.saveAll(candidatoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
@@ -57,14 +55,4 @@ public class CandidatoController {
     public ResponseEntity<Page<CandidatoModel>> findByEstado(@PathVariable String estado, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(candidatoService.findByEstado(estado, pageable));
     }
-
-    // @GetMapping("/datoso/{dataNasc}")
-    // public ResponseEntity<LocalDate> findByDataNasc(@PathVariable String
-    // dataNasc, Pageable pageable) {
-    // String[] novoDataNasc = dataNasc.split("/");
-    // LocalDate formatDataNasc = LocalDate.of(Integer.parseInt(novoDataNasc[2]),
-    // Integer.parseInt(novoDataNasc[1]),Integer.parseInt(novoDataNasc[0]));
-    // return ResponseEntity.status(HttpStatus.OK).body(formatDataNasc);
-    // }
-
 }
