@@ -9,7 +9,7 @@
             <th>Estado</th>
             <th>Quantidade de Candidatos</th>
           </tr>
-          <tr *ngFor="let item of candidatosPorEstado">
+          <tr *ngFor="let item of currentCandidatosPorEstado">
             <td>{{ item.key }}</td>
             <td>{{ item.value }}</td> 
           </tr>
@@ -22,49 +22,54 @@
             <th>Faixa Etária</th>
             <th>IMC Médio</th>
           </tr>
-          <tr *ngFor="let item of imcMedioPorFaixaEtaria">
+          <tr *ngFor="let item of currentImcMedioPorFaixaEtaria">
             <td>{{ item.key }}</td>
             <td>{{ item.value }}</td>
           </tr>
         </table>
     </mat-tab>
 
-    <mat-tab label="Percentual de Obesos">
+    <mat-tab label="Percentual de Obesos por Sexo">
         <table>
-          <tr>
-            <th>Percentual Obesos Homens</th>
-            <td>{{ percentualObesosHomens }}</td>
-          </tr>
-          <tr>
-            <th>Percentual Obesos Mulheres</th>
-            <td>{{ percentualObesosMulheres }}</td>
-          </tr>
+            <tr>
+                <th>Sexo</th>
+                <th>Percentual de Obesos</th>
+            </tr>
+            <tr>
+                <td>Masculino</td>
+                <td>{{ percentualObesosHomens }}%</td>
+            </tr>
+            <tr>
+                <td>Feminino</td>
+                <td>{{ percentualObesosMulheres }}%</td>
+            </tr>
         </table>
     </mat-tab>
 
     <mat-tab label="Média de Idade por Tipo Sanguíneo">
         <table>
-          <tr>
-            <th>Tipo Sanguíneo</th>
-            <th>Média de Idade</th>
-          </tr>
-          <tr *ngFor="let item of mediaIdadePorTipoSanguineo">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
+            <tr>
+                <th>Tipo Sanguíneo</th>
+                <th>Média de Idade</th>
+            </tr>
+            <tr *ngFor="let item of currentMediaIdadePorTipoSanguineo">
+                <td>{{ item.key }}</td>
+                <td>{{ item.value }}</td>
+            </tr>
         </table>
     </mat-tab>
 
     <mat-tab label="Possíveis Doadores por Tipo Sanguíneo">
         <table>
-          <tr>
-            <th>Tipo Sanguíneo</th>
-            <th>Possíveis Doadores</th>
-          </tr>
-          <tr *ngFor="let item of possiveisDoadoresPorTipoSanguineo">
-            <td>{{ item.key }}</td>
-            <td>{{ item.value }}</td>
-          </tr>
+            <tr>
+                <th>Tipo Sanguíneo</th>
+                <th>Possíveis Doadores</th>
+            </tr>
+            <tr *ngFor="let item of currentPossiveisDoadoresPorTipoSanguineo">
+                <td>{{ item.key }}</td>
+                <td>{{ item.value }}</td>
+            </tr>
         </table>
     </mat-tab>
+
 </mat-tab-group>

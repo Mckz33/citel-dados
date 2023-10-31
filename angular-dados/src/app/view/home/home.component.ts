@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { CandidatosPorEstado } from 'src/app/models/candidatos';
 import { Pessoa } from 'src/app/models/pessoa';
 import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-estados/candidatos-por-estado.service';
 
@@ -12,15 +11,19 @@ import { CandidatosPorEstadoService } from 'src/app/services/candidatos-por-esta
 export class HomeComponent implements AfterViewInit {
 
   dataSource: { key: string, value: number }[] = [];
-  pagedItems: { key: string, value: number }[] = [];
 
-  // Variáveis adicionadas
   candidatosPorEstado: { key: string, value: number }[] = [];
   imcMedioPorFaixaEtaria: { key: string, value: number }[] = [];
   percentualObesosHomens: number = 0;
   percentualObesosMulheres: number = 0;
   mediaIdadePorTipoSanguineo: { key: string, value: number }[] = [];
   possiveisDoadoresPorTipoSanguineo: { key: string, value: number }[] = [];
+
+  // Listas para itens paginados
+  currentCandidatosPorEstado: { key: string, value: number }[] = [];
+  currentImcMedioPorFaixaEtaria: { key: string, value: number }[] = [];
+  currentMediaIdadePorTipoSanguineo: { key: string, value: number }[] = [];
+  currentPossiveisDoadoresPorTipoSanguineo: { key: string, value: number }[] = [];
 
   public pessoas: Array<Pessoa> = [];
   public resposta: any;
@@ -72,11 +75,13 @@ export class HomeComponent implements AfterViewInit {
   updatePagedItems(): void {
     const startItem = this.paginator.pageIndex * this.paginator.pageSize;
     const endItem = startItem + this.paginator.pageSize;
-    this.pagedItems = this.dataSource.slice(startItem, endItem);
+    this.currentCandidatosPorEstado = this.candidatosPorEstado.slice(startItem, endItem);
+    this.currentImcMedioPorFaixaEtaria = this.imcMedioPorFaixaEtaria.slice(startItem, endItem);
+    this.currentMediaIdadePorTipoSanguineo = this.mediaIdadePorTipoSanguineo.slice(startItem, endItem);
+    this.currentPossiveisDoadoresPorTipoSanguineo = this.possiveisDoadoresPorTipoSanguineo.slice(startItem, endItem);
   }
 
   prepareData(resposta: any): void {
-    // Preparando os dados para cada categoria
     if (resposta) {
       this.candidatosPorEstado = Object.entries(resposta.candidatosPorEstado || {}).map(([key, value]) => ({ key, value: Number(value) }));
       this.imcMedioPorFaixaEtaria = Object.entries(resposta.imcMedioPorFaixaEtaria || {}).map(([key, value]) => ({ key, value: Number(value) }));
