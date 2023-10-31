@@ -26,6 +26,7 @@ import { HomeComponent } from './view/home/home.component';
 import { CriarComponent } from './components/criar/criar.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatTabsModule} from '@angular/material/tabs';
+import { TabelaComponent } from './components/tabela/tabela.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     NavComponent,
     FooterComponent,
     HomeComponent,
-    CriarComponent
+    CriarComponent,
+    TabelaComponent
   ],
   imports: [
     BrowserModule,

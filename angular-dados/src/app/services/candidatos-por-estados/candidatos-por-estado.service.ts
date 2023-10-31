@@ -1,8 +1,6 @@
 import { Pessoa } from './../../models/pessoa';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CandidatosPorEstado } from 'src/app/models/candidatos';
 
 @Injectable({
   providedIn: 'root'
