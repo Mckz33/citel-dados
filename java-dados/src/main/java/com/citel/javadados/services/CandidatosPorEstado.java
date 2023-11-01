@@ -13,11 +13,10 @@ public class CandidatosPorEstado implements Estatistica {
 
 	@Override
 	public Map<String, ?> calcular(List<CandidatoModel> candidatos) {
-		
+
 		return candidatos.stream()
-	                     .collect(Collectors.groupingBy(CandidatoModel::getEstado, Collectors.counting()));
-	        
-		
+				.collect(Collectors.groupingBy(CandidatoModel::getEstado, Collectors.counting()));
+
 	}
 
 }

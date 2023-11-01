@@ -1,74 +1,50 @@
-/* Estilos Gerais */
-.container {
+.file-upload-form {
+    text-align: end;
     margin: 20px;
-}
-
-h2 {
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-
-input[type="file"] {
-    margin: 10px;
-}
-
-/* Estilos para Angular Material Table */
-mat-table {
-    width: 100%;
-    overflow-x: auto; /* Adiciona scroll lateral */
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    margin: 20px 0;
-}
-
-/* Esta div envolve a tabela e permite a rolagem horizontal */
-div[mat-table] {
-    display: block;
-    overflow-x: auto;
-}
-
-mat-header-cell,
-mat-cell {
-    min-width: 120px; /* Define uma largura mínima para as células */
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura da célula */
-}
-
-mat-header-cell {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-mat-row:nth-child(even) {
-    background-color: #f5f5f5;
-}
-
-mat-row:hover {
-    background-color: #e0f7fa;
-}
-
-/* Estilos para Angular Material Paginator */
-mat-paginator {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #333;
-}
-
-mat-paginator .mat-select-trigger {
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    color: #333;
+  }
+  
+  .custom-file-upload {
+    background-color: #007bff;
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 5px;
     cursor: pointer;
-}
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+  }
+  
+  .styled-input {
+    display: none;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #1d8c36;
+  }
 
-/* Mensagem quando não há dados */
-.ng-template {
-    text-align: center;
-    font-size: 16px;
-    color: #888;
-}
+.excluir-button {
+    background-color: #ff5722; 
+    color: white; 
+    border: none;
+    padding: 10px 20px; 
+    cursor: pointer; 
+    border-radius: 4px; 
+  }
+  
+  .excluir-button:hover {
+    background-color: #f44336; 
+  }
+  

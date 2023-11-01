@@ -15,17 +15,12 @@ import com.citel.javadados.models.CandidatoModel;
 public class EstatisticaMediaIdadePorTipoSanguineo implements Estatistica {
 
     @Override
-     public Map<String, Double> calcular(List<CandidatoModel> candidatos) {
-    	
-    	Map<String, Double> mediaIdadePorTipoSanguineo = candidatos.stream()
+    public Map<String, Double> calcular(List<CandidatoModel> candidatos) {
+
+        Map<String, Double> mediaIdadePorTipoSanguineo = candidatos.stream()
                 .collect(Collectors.groupingBy(CandidatoModel::getTipoSanguineo,
                         Collectors.averagingInt(this::getIdade)));
         return mediaIdadePorTipoSanguineo;
-    }
-
-    private boolean isElegivelParaDoacao(CandidatoModel candidato) {       
-       
-        return getIdade(candidato) >= 16 && getIdade(candidato) <= 69 && candidato.getPeso() > 50;        
     }
 
     private int getIdade(CandidatoModel candidato) {
@@ -49,5 +44,5 @@ public class EstatisticaMediaIdadePorTipoSanguineo implements Estatistica {
 
         return idade;
     }
-    
+
 }

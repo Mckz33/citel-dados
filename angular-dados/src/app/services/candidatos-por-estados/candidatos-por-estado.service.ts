@@ -1,7 +1,7 @@
 import { Pessoa } from './../../models/pessoa';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +31,18 @@ export class CandidatosPorEstadoService {
     return this.httpClient.post(url, pessoas, {headers: headers});
   }
 
-  getData(page: number = 0, size: number = 20): Observable<Pessoa[]> {
-    return this.httpClient.get<Pessoa[]>(`${this.baseURL}/imc?page=${page}&size=${size}`);
-}
+  getData(page: number = 0, size: number = 10): Observable<Pessoa[]> {
+    return this.httpClient.get<Pessoa[]>(`${this.baseURL}/candidato?page=${page}&size=${size}`);
+  }
+
+  deleteAll(){
+    return this.httpClient.delete(`${this.baseURL}/candidato`)
+    .pipe(
+      catchError((error: any) => {
+        console.error('Erro na solicitação DELETE:', error);
+        throw error; // Você pode personalizar a manipulação de erros aqui
+      })
+    );
+  }
 
 }

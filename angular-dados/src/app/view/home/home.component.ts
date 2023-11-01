@@ -33,7 +33,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
   constructor(private candidatosPorEstadoService: CandidatosPorEstadoService) { }
   ngOnInit(): void {
     this.process();
-    throw new Error('Method not implemented.');
   }
 
   process(){

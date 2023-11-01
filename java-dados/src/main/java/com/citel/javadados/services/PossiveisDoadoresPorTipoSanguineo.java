@@ -16,37 +16,37 @@ public class PossiveisDoadoresPorTipoSanguineo implements Estatistica {
 
 	@Override
 	public Map<String, ?> calcular(List<CandidatoModel> candidatos) {
-		
+
 		return candidatos.stream()
-	                .filter(this::isElegivelParaDoacao)
-	                .collect(Collectors.groupingBy(CandidatoModel::getTipoSanguineo, Collectors.counting()));
-		
+				.filter(this::isElegivelParaDoacao)
+				.collect(Collectors.groupingBy(CandidatoModel::getTipoSanguineo, Collectors.counting()));
+
 	}
-	
+
 	private boolean isElegivelParaDoacao(CandidatoModel candidato) {
-        return getIdade(candidato) >= 16 && getIdade(candidato) <= 69 && candidato.getPeso() > 50;
-    }
-	
-	 private int getIdade(CandidatoModel candidato) {
+		return getIdade(candidato) >= 16 && getIdade(candidato) <= 69 && candidato.getPeso() > 50;
+	}
 
-	        // Data de nascimento no formato "dd/MM/yyyy"
-	        String dataNascimentoStr = candidato.getDataNasc();
+	private int getIdade(CandidatoModel candidato) {
 
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	        LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+		// Data de nascimento no formato "dd/MM/yyyy"
+		String dataNascimentoStr = candidato.getDataNasc();
 
-	        LocalDate dataAtual = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
 
-	        Period periodo = Period.between(dataNascimento, dataAtual);
-	        int idade = periodo.getYears();
+		LocalDate dataAtual = LocalDate.now();
 
-	        if (dataAtual.getMonthValue() < dataNascimento.getMonthValue() ||
-	                (dataAtual.getMonthValue() == dataNascimento.getMonthValue() &&
-	                        dataAtual.getDayOfMonth() < dataNascimento.getDayOfMonth())) {
-	            idade--;
-	        }
+		Period periodo = Period.between(dataNascimento, dataAtual);
+		int idade = periodo.getYears();
 
-	        return idade;
-	    }
+		if (dataAtual.getMonthValue() < dataNascimento.getMonthValue() ||
+				(dataAtual.getMonthValue() == dataNascimento.getMonthValue() &&
+						dataAtual.getDayOfMonth() < dataNascimento.getDayOfMonth())) {
+			idade--;
+		}
+
+		return idade;
+	}
 
 }

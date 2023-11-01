@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.citel.javadados.dtos.Resposta;
 import com.citel.javadados.models.CandidatoModel;
 import com.citel.javadados.services.CandidatoService;
 
@@ -35,27 +34,31 @@ public class CandidatoController {
     public CandidatoService candidatoService;
 
     /**
-     * Cria um novo registro de candidato ou candidatos e calcula estatísticas de IMC.
+     * Cria um novo registro de candidato ou candidatos e calcula estatísticas de
+     * IMC.
      *
      * @param candidatoDto A lista de candidatos a serem criados.
-     * @return Uma resposta contendo os resultados das estatísticas de IMC calculadas.
+     * @return Uma resposta contendo os resultados das estatísticas de IMC
+     *         calculadas.
      */
     @PostMapping
-    public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
-         candidatoService.saveAll(candidatoDto);
+    public ResponseEntity<Object> save(@RequestBody @Valid List<CandidatoModel> candidato) {
+        candidatoService.saveAll(candidato);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
-     * Cria um novo registro de candidato ou candidatos e calcula estatísticas de IMC, salvando os candidatos no banco de dados.
+     * Cria um novo registro de candidato ou candidatos e calcula estatísticas de
+     * IMC, salvando os candidatos no banco de dados.
      *
      * @param candidatoDto A lista de candidatos a serem criados.
-     * @return Uma resposta contendo os resultados das estatísticas de IMC calculadas.
+     * @return Uma resposta contendo os resultados das estatísticas de IMC
+     *         calculadas.
      */
     @PostMapping("/save-all")
-    public ResponseEntity<Object> saveAll(@RequestBody @Valid List<CandidatoModel> candidatoDto) {
-    	candidatoService.saveAll(candidatoDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Object> saveAll(@RequestBody @Valid List<CandidatoModel> candidato) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(candidatoService.saveAll(candidato));
     }
 
     /**
@@ -81,20 +84,13 @@ public class CandidatoController {
     }
 
     /**
-     * Pesquisa candidatos por estado.
+     * Método que realiza a exclusão de todos os candidatos.
      *
-     * @param estado O estado a ser pesquisado.
-     * @param pageable As opções de paginação.
-     * @return Uma página de candidatos do estado especificado.
+     * @return Um ResponseEntity com status HTTP OK (200) após a exclusão.
      */
-    @GetMapping("/pesquisar-estado/{estado}")
-    public ResponseEntity<Page<CandidatoModel>> findByEstado(@PathVariable String estado, Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(candidatoService.findByEstado(estado, pageable));
-    }
-    
     @DeleteMapping
-    public ResponseEntity<Page<CandidatoModel>> deleteAll() {
-    	candidatoService.deleteAll();
+    public ResponseEntity<Object> deleteAll() {
+        candidatoService.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

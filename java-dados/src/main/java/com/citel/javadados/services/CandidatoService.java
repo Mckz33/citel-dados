@@ -1,17 +1,11 @@
 package com.citel.javadados.services;
-
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.citel.javadados.dtos.Resposta;
 import com.citel.javadados.models.CandidatoModel;
 import com.citel.javadados.repositories.CandidatoRepository;
 
@@ -45,17 +39,8 @@ public class CandidatoService {
         candidatoRepository.deleteAll();
     }
 
-    public Page<CandidatoModel> findByEstado(String estado, Pageable pageable) {
-        return candidatoRepository.findByEstadoContaining(estado, pageable);
+    public List<CandidatoModel> saveAll(List<CandidatoModel> candidatos) {
+       return candidatoRepository.saveAll(candidatos);
     }
-
-    public Page<CandidatoModel> findByDataNasc(String dataNasc, Pageable pageable) {
-        return candidatoRepository.findByDataNascContaining(dataNasc, pageable);
-    }
-
-    public void saveAll(List<CandidatoModel> candidatos) {
-        candidatoRepository.saveAll(candidatos);
-    }   
-    
 
 }

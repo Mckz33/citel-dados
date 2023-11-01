@@ -1,29 +1,81 @@
-INSTALAÇÂO:
-
-1- git clone
-2-npm install
-3- ng serve OR npm start
+Claro, vou criar um exemplo de arquivo README para o seu projeto no GitHub, com instruções para executar o projeto em Angular 16 e Java 17 com Spring Boot. Lembre-se de adaptar essas instruções de acordo com a estrutura e configurações específicas do seu projeto.
 
 
-
-O sistema foi desenvolvido utilizando a combinação de Spring Boot e Angular Material, sem a necessidade de utilizar bibliotecas adicionais. Essa escolha de tecnologia demonstra a eficiência e a simplicidade da arquitetura, proporcionando uma implementação mais enxuta e fácil de manter.
+VIDEO DEMONSTRAÇÂO: https://youtu.be/w8MUTAyQP9I
 
 
 
-Neste relatório, será apresentada uma descrição das funcionalidades das páginas de um sistema, destacando suas principais características e o fluxo de informações entre elas.
+```markdown
+# Projeto Angular 16 e Spring Boot com Java 17
 
-Página Início:
+Este repositório contém um projeto web desenvolvido em Angular 16 para o frontend e Spring Boot com Java 17 para o backend. Siga as instruções abaixo para configurar e executar o projeto em sua máquina.
 
-A Página Início é a primeira tela que o usuário encontra ao acessar o sistema. Sua principal funcionalidade é permitir que o usuário faça o upload de um arquivo JSON. Quando o usuário insere o arquivo, o backend realiza uma varredura e extrai os resultados dos serviços contidos nesse arquivo. Essas informações são temporariamente armazenadas em "memória", o que significa que elas permanecem disponíveis enquanto o usuário não trocar de página ou atualizar os dados. Para garantir a persistência desses dados mesmo após uma mudança de página ou atualização, é sugerido o uso do sessionStorage.
+## Pré-requisitos
 
-A Página Início também oferece uma funcionalidade de navegação intuitiva por meio de abas (mat-tabs), que permitem ao usuário alternar entre diferentes conjuntos de informações sem perder os dados previamente carregados. Isso proporciona uma experiência de usuário mais eficiente e organizada.
+- Node.js: [https://nodejs.org/](https://nodejs.org/)
+- Angular CLI: Execute `npm install -g @angular/cli` para instalar globalmente.
+- Java Development Kit (JDK) 17: [https://adoptium.net/](https://adoptium.net/)
+- Spring Boot: [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
-Página Tabelas:
+## Configurando o Backend (Spring Boot)
 
-A Página Tabelas é dedicada à apresentação de informações resultantes de consultas específicas realizadas a partir dos dados inseridos na Página Início. Aqui, os dados são exibidos de forma tabular, tornando a visualização e análise mais conveniente. É importante ressaltar que os dados exibidos nesta página são resultados de consultas, não são armazenados permanentemente no sistema. Portanto, qualquer atualização ou nova consulta requer que o usuário retorne à Página Início.
+1. Clone este repositório:
 
-Página Cadastrar:
+   ```bash
+   git clone https://github.com/Mckz33/citel-dados.git
+   ```
 
-A Página Cadastrar segue um esquema semelhante à Página Início em termos de inserção de dados, permitindo que o usuário faça upload de um arquivo JSON. No entanto, a principal diferença é que as informações inseridas nesta página são salvas no banco de dados do sistema. Para isso, é executada uma operação de POST para armazenar as informações e, posteriormente, uma operação de GET para recuperar os dados armazenados.
+2. Navegue até a pasta do projeto:
 
-Essa página é especialmente útil para o usuário quando deseja armazenar permanentemente informações relevantes para o sistema, que podem ser consultadas posteriormente. Isso permite a criação de um repositório de dados que pode ser acessado e gerenciado de forma eficaz.
+   ```bash
+   cd citel-dados-master
+   ```
+
+3. Abra a pasta do backend:
+
+   ```bash
+   cd java-dados
+   ```
+
+4. Inicie o servidor Spring Boot:
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+O backend estará acessível em [http://localhost:8080].
+
+## Configurando o Frontend (Angular)
+
+1. Navegue até a pasta do projeto (caso ainda não esteja nela):
+
+   ```bash
+   cd citel-dados-master
+   ```
+
+2. Abra a pasta do frontend:
+
+   ```bash
+   cd angular-dados
+   ```
+
+3. Instale as dependências do Angular:
+
+   ```bash
+   npm install
+   ```
+
+4. Inicie o servidor de desenvolvimento do Angular:
+
+   ```bash
+   ng serve
+   ```
+
+O frontend estará acessível em [http://localhost:4200].
+
+Agora você deve ter o backend e o frontend em execução. Você pode acessar o aplicativo no navegador e começar a desenvolver.
+
+Lembre-se de adaptar estas instruções de acordo com a estrutura de seu projeto, incluindo quaisquer outros passos ou configurações específicas que seu projeto possa exigir.
+
+Boa codificação!
+```

@@ -8,4 +8,3 @@ import com.citel.javadados.models.CandidatoModel;
 public interface Estatistica {
     Map<String, ?> calcular(List<CandidatoModel> candidatos);
 }
-

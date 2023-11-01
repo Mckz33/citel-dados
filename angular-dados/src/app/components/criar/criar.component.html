@@ -1,9 +1,14 @@
-<input type="file" (change)="onFileSelected($event)">
+<form class="file-upload-form">
+  <label class="custom-file-upload">
+    <input type="file" (change)="onFileSelected($event)" class="styled-input" id="fileInput" >
+    Escolher arquivo
+  </label>
+  
+  <!-- Botão de Excluir -->
+  <button class="excluir-button" (click)="excluirCandidato()" style="margin-left: 10px;">Excluir</button>
 
-<!-- Paginador -->
-<mat-paginator [length]="totalElements" [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]"
-  (page)="fetchData($event)">
-</mat-paginator>
+</form>
+
 
 <!-- Seção para exibir as tabelas -->
 <div *ngIf="pessoas.length > 0; else noData">
@@ -12,14 +17,14 @@
     <mat-table [dataSource]="pessoas">
 
       <!-- Definir colunas -->
-      <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+      <ng-container *ngFor="let col of columnsToDisplay" [matColumnDef]="col">
         <mat-header-cell *matHeaderCellDef> {{ col }} </mat-header-cell>
         <mat-cell *matCellDef="let pessoa"> {{ pessoa[col] }} </mat-cell>
       </ng-container>
 
       <!-- Cabeçalho e Linhas -->
-      <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: columns"></mat-row>
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
     </mat-table>
   </div>
 </div>
@@ -28,3 +33,7 @@
 <ng-template #noData>
   <p>Nenhum candidato encontrado.</p>
 </ng-template>
+<!-- Paginador -->
+<mat-paginator [length]="totalElements" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"
+  (page)="fetchData($event)">
+</mat-paginator>
